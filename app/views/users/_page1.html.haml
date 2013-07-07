@@ -1,0 +1,40 @@
+%td.empty{ :width => "15%" }
+	%td.survey-form{ :width => "70%", :height => "300px" }	
+		%table{ :width => "100%" }
+			%tr{:height => "100%"}
+				%td.questions{ :width =>"60%", :align => "right" }
+					%table.questions_table
+						%form
+						%tr
+							%td.profile_question_item
+								FIRST NAME
+							%td.input_item
+								%input.q{ :type => "text", :name => "icecream" }								
+						%tr
+							%td.profile_question_item
+								LAST NAME
+							%td.input_item
+								%input.q{ :type => "text", :name => "superhero" }
+						%tr
+							%td.profile_question_item
+								EMAIL ADDRESS
+							%td.input_item
+								%input.q{ :type => "text", :name => "moviestar"}
+						%tr
+							%td.profile_question_item
+								BIRTHDAY
+							%td.input_item
+								%input.q{ :type => "text", :name => "worldend"}
+						%tr
+							%td.profile_question_item
+								SHOE SIZE
+							%td.input_item
+								%input.q{ :type => "text", :name => "superbowl"}			
+				%td.save{ :width =>"40%"}
+					%table{ :align => "center", :height => "100%" }
+						%tr.empty{ :height => "30px"}
+						%tr{ :height => "90%"}
+							%td
+								%center
+									%input.save_button{ :type => "image", :src => "assets/save_button_only.png" }
+	%td.empty{ :width => "15%" }
