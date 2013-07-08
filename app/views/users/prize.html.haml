@@ -1,0 +1,19 @@
+%td.empty{ :width => "10%" }
+	%td.bg3#survey-form{ :width => "70%", :height => "300px" }
+		%table{:align => "center"}
+			%tr.empty{ :height => "20px"}
+			%tr
+				%td
+					%center
+						%a.congrats
+							CONGRATULATIONS, YOU DID IT! HERE'S YOUR AWESOME PRIZE:
+			%tr.empty{ :height => "30px"}
+			%tr
+				%td
+					%center
+						%a#picture
+							<img src="
+							=@gifbin.body.match(/img\ src.*gif/)[0].match(/http.*alt/)[0].gsub("alt","").gsub(/"/,'')
+							">
+			%tr.empty{ :height => "30px"}
+	%td.empty{ :width => "10%" }

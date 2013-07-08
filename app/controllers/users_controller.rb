@@ -10,14 +10,14 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(params[:user])
     if @user.save
-      render :create
+      render :edit
   	else
       head 422
     end
   end
 
   def edit
-    @user = User.find_by_id(params[:id])
+    @user = User.find(params[:id])
     if @user
       render :edit
     else
@@ -26,10 +26,18 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by_id(params[:id])
+    @user = User.find(params[:id])
+    if @user.update(params[:user])
+      @gifbin = HTTParty.get('http://gifbin.com/random')
+      render :prize
+    else
+      head 422
+    end
   end
 
-  def answer
+  def gifbin
+    @gifbin = HTTParty.get('http://gifbin.com/random')
+    render :prize
   end
 
 end

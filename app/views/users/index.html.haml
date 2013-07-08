@@ -43,7 +43,6 @@
 		$(document).ready(function() 
 		{
 			{
-				alert(localStorage['page']);
 				switch(localStorage['page'])
 				{
 					case "page1":
@@ -57,15 +56,16 @@
 					case "page2":
 						$.get('users/edit', function(data) 
 						{
+							alert("lol");
 							$('#survey').html(data);
 						});
 						setSaveButton();
 						break;
 
 					case "page3":
-						$.get('responses/gifbin', function(data) 
+						$.get('users/gifbin', function(data) 
 						{
-							$('#picture').html("<img src=\""+data+"\">");
+							$('#survey').html(data);
 						});
 						break;
 

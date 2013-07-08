@@ -1,7 +1,7 @@
 %td.empty{ :width => "10%" }
 	%td.bg2#survey-form{ :width => "70%", :height => "300px" }	
 		%table{ :width => "100%" }
-			= form_for @user, :action => "answer", :remote => true do |f|
+			= form_for @user, :action => "update", :remote => true do |f|
 				%tr{:height => "100%"}
 					%td.questions{ :width =>"70%", :align => "right" }
 						%table.questions_table
