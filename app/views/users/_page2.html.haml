@@ -1,41 +1,40 @@
-%td.empty{ :width => "15%" }
-	%td.survey-form{ :width => "70%", :height => "300px" }	
+%td.empty{ :width => "10%" }
+	%td.bg2#survey-form{ :width => "70%", :height => "300px" }	
 		%table{ :width => "100%" }
-			%tr{:height => "100%"}
-				%td.questions{ :width =>"60%" }
-					%table.questions_table
-						%form
-						%tr
-							%td.question_item
-								WHAT IS YOUR FAVOURITE ICE CREAM?
-							%td.input_item
-								%input.q{ :type => "text", :name => "icecream" }								
-						%tr
-							%td.question_item
-								WHO IS YOUR FAVOURITE SUPERHERO?
-							%td.input_item
-								%input.q{ :type => "text", :name => "superhero" }
-						%tr
-							%td.question_item
-								WHO IS YOUR FAVOURITE MOVIE STAR?
-							%td.input_item
-								%input.q{ :type => "text", :name => "moviestar"}
-						%tr
-							%td.question_item
-								WHEN DO YOU THINK THE WORLD WILL END?
-							%td.input_item
-								%input.q{ :type => "text", :name => "worldend"}
-						%tr
-							%td.question_item
-								WHO WILL WIN THE SUPERBOWL THIS YEAR?
-							%td.input_item
-								%input.q{ :type => "text", :name => "superbowl"}			
-				%td.save{ :width =>"40%"}
-					%table{ :align => "center", :height => "100%" }
-						%tr.empty{ :height => "30px"}
-						%tr{ :height => "90%"}
-							%td
-								%center
-									%a.save
-										%img{ :src =>"assets/save_button_only.png" }	
-	%td.empty{ :width => "15%" }
+			= form_for @response, :remote => true do |f|
+				%tr{:height => "100%"}
+					%td.questions{ :width =>"70%", :align => "right" }
+						%table.questions_table
+							%tr
+								%td.question_item
+									WHAT IS YOUR FAVOURITE ICECREAM?
+								%td.input_item
+									= f.text_field :icecream
+							%tr
+								%td.question_item
+									WHO IS YOUR FAVOURITE SUPERHERO?
+								%td.input_item
+									= f.text_field :superhero
+							%tr
+								%td.question_item
+									WHO IS YOUR FAVOURITE MOVIE STAR?
+								%td.input_item
+									= f.text_field :moviestar
+							%tr
+								%td.question_item
+									WHEN DO YOU THINK THE WORLD WILL END?
+								%td.input_item
+									= f.text_field :world_end
+							%tr
+								%td.question_item
+									WHO WILL WIN THE SUPERBOWL THIS YEAR?
+								%td.input_item
+									= f.text_field :superbowl
+					%td.save{ :width =>"25%"}
+						%table{ :align => "center", :height => "100%" }
+							%tr.empty{ :height => "30px"}
+								%tr{ :height => "90%"}
+									%td
+										%center
+											= f.submit "Create", :type => :image, :src => "/assets/save_button_only.png" 
+	%td.empty{ :width => "10%" }

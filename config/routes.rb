@@ -1,12 +1,10 @@
 Megogo::Application.routes.draw do
   
   root :to => "users#index"
-  
-  get "users/index"
 
-  get "users/create"
-
-  get "users/answer"
+  match "responses/gifbin" => "responses#gifbin"
+  resources :users
+  resources :responses
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

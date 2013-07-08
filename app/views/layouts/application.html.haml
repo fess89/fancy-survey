@@ -3,11 +3,86 @@
 	%title Fancy Survey
 	= stylesheet_link_tag :application
 	= javascript_include_tag :application
+	= javascript_include_tag :users
 	= csrf_meta_tag
 	:javascript
-		$(document).ready(function() {
-			$('#survey').html("#{escape_javascript(render :partial => 'page1')}");	
+
+		function setSaveButton()
+		{
+			$('#profile').submit(function() 
+			{  
+				var valuesToSubmit = $(this).serialize();
+				$.ajax(
+				{
+					url: $(this).attr('action'), 
+					type: "post",
+					data: valuesToSubmit,
+					dataType: "JSON",
+				});
+				return false; 
+			});
+		}		
+
+		$(document).on('ajax:success', function()
+			{
+				switch(localStorage['page'])
+				{
+					case "page1":
+						$('#survey').html("#{escape_javascript(render :partial => 'page2')}");
+						$('#survey-form').css('background-image', "image-url 'step_2_frame.png'");	
+						setSaveButton();
+						localStorage['page'] = "page2";
+						break;
+					case "page2":
+						$('#survey').html("#{escape_javascript(render :partial => 'page3')}");	
+						localStorage['page'] = "page3";
+						break;
+					default:
+						break;
+				}
+				
+			}
+		);
+
+		$(document).on('ajax:error', function()
+			{
+				alert("Проверьте, что все поля заполнены верно!");
+			}
+		);
+
+
+		$(document).ready(function() 
+		{
+
+			switch(localStorage['page'])
+			{
+				case "page1":
+					$('#survey').html("#{escape_javascript(render :partial => 'page1')}");	
+					setSaveButton();
+					break;
+
+				case "page2":
+					$('#survey').html("#{escape_javascript(render :partial => 'page2')}");	
+					setSaveButton();
+					break;
+
+				case "page3":
+					$('#survey').html("#{escape_javascript(render :partial => 'page3')}");	
+					$.get('responses/gifbin', function(data) 
+					{
+						$('#picture').html("<img src=\""+data+"\">");
+					});
+					break;
+
+				default:
+					$('#survey').html("#{escape_javascript(render :partial => 'page1')}");	
+					localStorage['page'] = "page1";
+					setSaveButton();
+					break;
+			}
+			
 		});
+
 	%body
 		%table.header{ :width => "100%", :align => "center"}
 			%td{ :width => "50%", :align => "center" }
@@ -32,7 +107,7 @@
 					%tr.content-top
 					%td{ :width => "100%", :align => "center" }
 						%table{ :width => "100%"}
-							%td.empty{ :width => "15%"}
+							%td.empty{ :width => "10%"}
 							%td.getting_prize{ :width => "35%"}
 								%img{ :src => "assets/getting_points.png"}
 							%td.timer{ :width => "35%", :valign => "top"}
@@ -47,7 +122,7 @@
 											%a.timer_units
 												SECONDS
 									%tr.empty{ :height => "25%"}				
-							%td.empty{ :width => "15%"}	
+							%td.empty{ :width => "10%"}	
 				%tr.empty{ :height => "20px" }
 				
 				%tr.content-center{ :align => "center"}
