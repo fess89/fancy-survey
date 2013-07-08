@@ -1,40 +1,139 @@
-%td.empty{ :width => "15%" }
-	%td.survey-form#survey-form{ :width => "70%", :height => "300px" }	
-		%table{ :width => "100%" }
-			= form_for @user, :remote => true do |f|
-				%tr{:height => "100%"}
-					%td.questions{ :width =>"60%", :align => "right" }
-						%table.questions_table
-							%tr
-								%td.profile_question_item#first_name
-									FIRST NAME
-								%td.input_item
-									= f.text_field :first_name
-							%tr
-								%td.profile_question_item#last_name
-									LAST NAME
-								%td.input_item
-									= f.text_field :last_name
-							%tr
-								%td.profile_question_item
-									EMAIL ADDRESS
-								%td.input_item
-									= f.text_field :email
-							%tr
-								%td.profile_question_item
-									BIRTHDAY
-								%td.input_item
-									= f.text_field :birthday
-							%tr
-								%td.profile_question_item
-									SHOE SIZE
-								%td.input_item
-									= f.text_field :shoesize
-					%td.save{ :width =>"40%"}
-						%table{ :align => "center", :height => "100%" }
-							%tr.empty{ :height => "30px"}
-								%tr{ :height => "90%"}
-									%td
-										%center
-											= f.submit "Create", :type => :image, :src => "/assets/save_button_only.png" 
-	%td.empty{ :width => "15%" }
+%html
+	%head
+	%title Fancy Survey
+	= stylesheet_link_tag :application
+	= javascript_include_tag :application
+	= javascript_include_tag :users
+	= csrf_meta_tag
+	:javascript
+
+		function setSaveButton()
+		{
+			$('#profile').submit(function() 
+			{  
+				var valuesToSubmit = $(this).serialize();
+				$.post(
+					{
+						url: $(this).attr('action'), 
+						data: valuesToSubmit,
+						dataType: "html",
+					}
+				);
+				return false; 
+			});
+		}		
+
+		$(document).on('ajax:success', function(data, textStatus)
+			{
+				$('#survey').html(textStatus);
+				switch(localStorage['page'])
+				{
+					case "page1":
+						localStorage['page'] = "page2";
+						break;
+					case "page2":
+						localStorage['page'] = "page3";
+						break;
+					default:
+						break;
+				}
+			}
+		);		
+
+		$(document).ready(function() 
+		{
+			{
+				alert(localStorage['page']);
+				switch(localStorage['page'])
+				{
+					case "page1":
+						$.get('users/new', function(data) 
+						{
+							$('#survey').html(data);
+						});
+						setSaveButton();
+						break;
+
+					case "page2":
+						$.get('users/edit', function(data) 
+						{
+							$('#survey').html(data);
+						});
+						setSaveButton();
+						break;
+
+					case "page3":
+						$.get('responses/gifbin', function(data) 
+						{
+							$('#picture').html("<img src=\""+data+"\">");
+						});
+						break;
+
+					default:
+						$.get('users/new', function(data) 
+						{
+							$('#survey').html(data);
+						});
+						localStorage['page'] = "page1";
+						setSaveButton();
+						break;
+				}
+			}	
+		});
+
+		$(document).on('ajax:error', function()
+			{
+				alert("Проверьте, что все поля заполнены верно!");
+			}
+		);
+
+	%body
+		%table.header{ :width => "100%", :align => "center"}
+			%td{ :width => "50%", :align => "center" }
+				%img.logo{ :src => "assets/logo.png" }
+			%td.navigation{ :width => "50%", :align => "center" }
+				%table{ :height => "40px", :width => "100%"}
+					%td.navigation#happy_testers 
+						%a.navigation_link HAPPY TESTERS
+					%td.navigation{ :width => "20px"}
+					%td.navigation#status
+						%a.navigation_link STATUS
+					%td.navigation{ :width => "20px"}
+					%td.navigation#todays_survey
+						%a.navigation_link TODAY'S SURVEY
+					%td.navigation{ :width => "20px"}
+					%td.navigation#invite_friends
+						%a.navigation_link INVITE FRIENDS
+					%td.navigation
+
+			%table.main{ :width => "100%"}
+				%tr.empty{ :height => "50px" }
+					%tr.content-top
+					%td{ :width => "100%", :align => "center" }
+						%table{ :width => "100%"}
+							%td.empty{ :width => "10%"}
+							%td.getting_prize{ :width => "35%"}
+								%img{ :src => "assets/getting_points.png"}
+							%td.timer{ :width => "35%", :valign => "top"}
+								%table{:width => "100%", :height => "100%"}
+									%tr{ :height => "25%"}
+										%td.timer_caption
+											Time remaining to complete your tasks
+									%tr{ :height => "50%"}
+										%td.timer_content
+											%a.timer_seconds 
+												342.1 
+											%a.timer_units
+												SECONDS
+									%tr.empty{ :height => "25%"}				
+							%td.empty{ :width => "10%"}	
+				%tr.empty{ :height => "20px" }
+				
+				%tr.content-center{ :align => "center"}
+					%td{ :width => "100%"}
+						%table.survey#survey{ :width => "100%" }
+
+					%tr.empty{ :height => "50px" }
+
+			%div.footer{ :width => "100%" }
+				&copy; Copyright Fancy Survey 2013.
