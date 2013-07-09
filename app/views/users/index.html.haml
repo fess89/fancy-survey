@@ -30,6 +30,7 @@
 				{
 					case "page1":
 						localStorage['page'] = "page2";
+						localStorage['user_id'] = $(".edit_user").attr("id").replace("edit_user_","");
 						break;
 					case "page2":
 						localStorage['page'] = "page3";
@@ -54,11 +55,21 @@
 						break;
 
 					case "page2":
-						$.get('users/edit', function(data) 
+						if (typeof localStorage['user_id'] != 'undefined')
 						{
-							alert("lol");
-							$('#survey').html(data);
-						});
+							$.get('users/edit', { id: localStorage['user_id'] }, function(data) 
+							{
+								$('#survey').html(data);
+							});	
+						}
+						else
+						{
+							$.get('users/edit', function(data) 
+							{
+								$('#survey').html(data);
+							});
+						}
+						
 						setSaveButton();
 						break;
 
