@@ -43,6 +43,34 @@
 
 		$(document).ready(function() 
 		{
+			/* timer */
+			if (typeof localStorage['count'] != 'undefined')
+			{
+				var count = parseFloat(localStorage['count']);
+			}
+			else
+			{
+				var count = parseFloat("0.0");
+			}
+
+			var interval = setInterval(function() 
+			{
+				count = count + 0.1;
+				$('#timer_seconds').html((360.0-count).toString().substring(0,5));
+				localStorage['count'] = count;
+			}, 
+			100);
+
+			var timeout = setTimeout(function() 
+			{
+				alert(count);
+				clearInterval(interval);
+				count = 0;
+				localStorage["count"] = 0;
+			}, 
+			36000 - count);
+
+			/* main functionality */
 			{
 				switch(localStorage['page'])
 				{
@@ -76,6 +104,8 @@
 						{
 							$('#survey').html(data);
 						});
+						$('#timer_seconds').html((360.0-count).toString().substring(0,5));
+						clearInterval(interval);
 						break;
 
 					default:
@@ -130,9 +160,8 @@
 											Time remaining to complete your tasks
 									%tr{ :height => "50%"}
 										%td.timer_content
-											%a.timer_seconds 
-												342.1 
-											%a.timer_units
+											%a#timer_seconds 
+											%a#timer_units
 												SECONDS
 									%tr.empty{ :height => "25%"}				
 							%td.empty{ :width => "10%"}	
