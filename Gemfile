@@ -1,3 +1,5 @@
+ruby '1.9.3'
+
 require 'rubygems'
 require 'mongo'
 source 'http://gemcutter.org'
@@ -5,6 +7,7 @@ source 'http://gemcutter.org'
 gem "rails", "3.2.13"
 gem "mongo_mapper"
 gem "mongoid", "~> 3.0.0"
+gem "heroku"
 gem "httparty"
 
 # Gems used only for assets and not required
