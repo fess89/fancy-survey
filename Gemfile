@@ -1,8 +1,8 @@
-ruby '1.9.3'
+source "https://rubygems.org"
+ruby "1.9.3"
 
 require 'rubygems'
 require 'mongo'
-source 'http://gemcutter.org'
 
 gem "rails", "3.2.13"
 gem "mongo_mapper"
@@ -18,7 +18,7 @@ group :assets do
   gem 'haml-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', :platforms => ruby
   gem 'uglifier', '>= 1.0.3'
 end
 
