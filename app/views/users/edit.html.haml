@@ -24,7 +24,7 @@
 								%td.question_item
 									WHEN DO YOU THINK THE WORLD WILL END?
 								%td.input_item
-									= f.text_field :world_end
+									= f.date_select(:world_end, :start_year => 1940, :order => [:month, :day, :year])
 							%tr
 								%td.question_item
 									WHO WILL WIN THE SUPERBOWL THIS YEAR?

@@ -24,7 +24,8 @@
 								%td.profile_question_item
 									BIRTHDAY
 								%td.input_item
-									= f.text_field :birthday
+									%span#date
+										= f.date_select(:birthday, :start_year => 1940, :order => [:month, :day, :year])
 							%tr
 								%td.profile_question_item
 									SHOE SIZE
