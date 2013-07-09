@@ -57,19 +57,17 @@
 					case "page2":
 						if (typeof localStorage['user_id'] != 'undefined')
 						{
-							$.get('users/edit', { id: localStorage['user_id'] }, function(data) 
-							{
-								$('#survey').html(data);
-							});	
+							arg = { id: localStorage['user_id'] };
 						}
 						else
 						{
-							$.get('users/edit', function(data) 
-							{
-								$('#survey').html(data);
-							});
+							arg="";
 						}
-						
+						$.get('users/edit', arg, function(data) 
+						{
+							$('#survey').html(data);
+						});
+										
 						setSaveButton();
 						break;
 
