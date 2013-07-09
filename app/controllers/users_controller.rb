@@ -27,8 +27,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(params[:user])
-    if @user.save
+    if @user.update_attributes(params[:user])
       @gifbin = HTTParty.get('http://gifbin.com/random')
       render :prize
     else
