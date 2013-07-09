@@ -3,7 +3,6 @@ ruby '1.9.3'
 gem 'foreman'
 
 gem "rails", "3.2.13"
-gem "mongo_mapper"
 gem "mongoid", "~> 3.0.0"
 gem "httparty"
 
