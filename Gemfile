@@ -1,8 +1,7 @@
-source "https://rubygems.org"
-ruby '1.9.3'
-
 require 'rubygems'
 require 'mongo'
+
+source 'http://gemcutter.org'
 
 gem "rails", "3.2.13"
 gem "mongo_mapper"
